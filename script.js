@@ -74,12 +74,44 @@ class Calculator {
 
     updateDisplay() {
         //displays current text element as the currentOperand
-        this.currentOperandTextElement.innerText = this.currentOperand
+        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand)
 
         //displays both the text element and the operand as the innerText
         if (this.operation != null) {
             this.previousOperandTextElement.innerText = 
-            `${this.previousOperand} ${this.operation}`
+            `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        }
+        else{
+            this.previousOperandTextElement.innerText = ''
+        }
+    }
+
+    //allows the addition of commas
+    getDisplayNumber(number){
+        //problem occurs when trying to inlcude '.' because it is not considered a number
+        //even though we wrote it as a number
+
+        //get every part of the string that can be inputted
+        const stringNumber = number.toString()
+        const integerDigits = parseFloat(stringNumber.split('.')[0]) //the numbers before '.' are the integer digits
+        const decimalDigits = stringNumber.split('.')[1] //the numbers after '.' are the decimals
+
+        let integerDisplay
+        //if the user inputs nothing on the screen or a '.'
+        if (isNaN(integerDigits)){
+            integerDisplay = ''
+        }
+        //the maximum fraction digits ensures there are no more '.' after the first one
+        else {
+            integerDisplay = integerDigits.toLocaleString('en', {maximumFractionDigits:0})
+        }
+
+        //if there are decimal digits
+        if (decimalDigits != null){
+            return `${integerDisplay}.${decimalDigits}`
+        }
+        else{
+            return integerDisplay
         }
     }
 }
