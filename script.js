@@ -73,8 +73,14 @@ class Calculator {
     }
 
     updateDisplay() {
+        //displays current text element as the currentOperand
         this.currentOperandTextElement.innerText = this.currentOperand
-        this.previousOperandTextElement.innerText = this.previousOperand
+
+        //displays both the text element and the operand as the innerText
+        if (this.operation != null) {
+            this.previousOperandTextElement.innerText = 
+            `${this.previousOperand} ${this.operation}`
+        }
     }
 }
 
