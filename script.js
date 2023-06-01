@@ -12,7 +12,9 @@ class Calculator {
     }
 
     delete() {
-
+        //removes the very last cahracter of the string by keeping the first 
+        //and second to last index
+        this.currentOperand = this.currentOperand.toString().slice(0,-1)
     }
 
     appendNumber(number)  {
@@ -110,5 +112,10 @@ equalsButton.addEventListener('click', button => {
 
 allClearButton.addEventListener('click', button => {
     calculator.clear()
+    calculator.updateDisplay()
+})
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete()
     calculator.updateDisplay()
 })
